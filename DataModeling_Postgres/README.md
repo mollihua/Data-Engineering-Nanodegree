@@ -9,8 +9,10 @@ Write statements in sql_queries.py to specify all columns for each of the five t
 
 
 **ETL**
+
 Develop ETL for each table in the etl.ipynb notebook. Then implement etl.py, and then run "python3 etl.py" in terminal to process the entire datasets.
 
 
 **Vaildation**
+
 Run the jupyter-notebook test.ipynb to confirm that the records have been successfully inserted into each table.
