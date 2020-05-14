@@ -11,6 +11,10 @@ psycopg2.extensions.register_adapter(np.int64, psycopg2._psycopg.AsIs)
 
 
 def process_song_file(cur, filepath):
+    """
+    - Process a single song file. 
+    - Insert data into song_table and artist_table.
+    """
     # open song file
     df = pd.read_json(filepath, lines=True)
 
@@ -26,6 +30,10 @@ def process_song_file(cur, filepath):
 
 
 def process_log_file(cur, filepath):
+    """
+    - Process a single log file.
+    - Filter by NextSong, then insert data into time_table, user_table, and songplay_table.
+    """
     # open log file
     df = pd.read_json(filepath, lines=True)
 
@@ -69,6 +77,14 @@ def process_log_file(cur, filepath):
 
 
 def process_data(cur, conn, filepath, func):
+    """
+    - Process all files in filepath with func.
+    - Arguments:
+        cur: cursor of connection
+        conn: connection
+        filepath: target file path
+        func: function to process files in filepath
+    """
     # get all files matching extension from directory
     all_files = []
     for root, dirs, files in os.walk(filepath):
@@ -88,6 +104,12 @@ def process_data(cur, conn, filepath, func):
 
 
 def main():
+    """
+    - Connect to the sparkify database
+    - Perform ETL to process song files.
+    - Perform ETL to process log files.
+    - Finally, close the connection.
+    """
     conn = psycopg2.connect("host=127.0.0.1 dbname=sparkifydb user=student password=student")
     cur = conn.cursor()
 
